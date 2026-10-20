@@ -1,0 +1,209 @@
+[
+  {
+    "extractor": "custom_cnn",
+    "classifier": "svm",
+    "original_notebook": "1. CNN Propia EC por Clasificador/SVM_DB_CNNPropia.ipynb",
+    "sha256": "a35108f6b5e61acf3184642f795c1d2237e66aaa65e73d878d4a3fca0da3482e",
+    "model_cells": [
+      {
+        "cell": 5,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\nsvm = SVC(kernel='rbf')\nsvm.fit(X_train, y_train)\n\n\ny_pred = svm.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "custom_cnn",
+    "classifier": "knn3",
+    "original_notebook": "1. CNN Propia EC por Clasificador/KNN3_DB_CNNPropia.ipynb",
+    "sha256": "41ba1d470142b4748204e588a71da2be1c1fa8445dcc479f2f5a43eff29aafa2",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\nknn = KNeighborsClassifier(n_neighbors=3)\nknn.fit(X_train, y_train)\n\n\ny_pred = knn.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "custom_cnn",
+    "classifier": "random_forest",
+    "original_notebook": "1. CNN Propia EC por Clasificador/RF_DB_CNNPropia.ipynb",
+    "sha256": "4c35ddd15c59995d4055345d49b78f36227e8ee2588171a940619c21c77ba552",
+    "model_cells": [
+      {
+        "cell": 5,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\nrf = RandomForestClassifier(n_estimators=100, random_state=42)\nrf.fit(X_train, y_train)\n\n\ny_pred = rf.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "custom_cnn",
+    "classifier": "xgboost",
+    "original_notebook": "1. CNN Propia EC por Clasificador/XG_Boost_DB_CNNPropia.ipynb",
+    "sha256": "bd0ad108049d981c0b5296ed8c237b1abd49515a6a03d7fad3ce0ece11159648",
+    "model_cells": [
+      {
+        "cell": 5,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\nxgb = XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42)\nxgb.fit(X_train, y_train)\n\n\ny_pred = xgb.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "custom_cnn",
+    "classifier": "gbm",
+    "original_notebook": "1. CNN Propia EC por Clasificador/GBM_DB_CNNPropia.ipynb",
+    "sha256": "d5fe7ddb3337c69c8cf0dc40ca232d5985c2762a16c3176703de599e2e0a5d8e",
+    "model_cells": [
+      {
+        "cell": 5,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\ngbm = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=None)\ngbm.fit(X_train, y_train)\n\n\ny_pred = gbm.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n\nprint(f'Gradient boosting validation accuracy: {accuracy * 100:.2f}%')\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "custom_cnn",
+    "classifier": "feedforward",
+    "original_notebook": "1. CNN Propia EC por Clasificador/FeedFwrd_DB_CNNPropia.ipynb",
+    "sha256": "e43648ba4d376c9a9fdb85dd3a7b5a626eb3c695233af5835086e4e78e0e67b3",
+    "model_cells": [
+      {
+        "cell": 5,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\nmodel_ffnn = Sequential()\nmodel_ffnn.add(Dense(1024, activation='relu', input_shape=(X_train.shape[1],)))\nmodel_ffnn.add(BatchNormalization())\nmodel_ffnn.add(Dropout(0.5))\nmodel_ffnn.add(Dense(512, activation='relu'))\nmodel_ffnn.add(BatchNormalization())\nmodel_ffnn.add(Dropout(0.5))\nmodel_ffnn.add(Dense(256, activation='relu'))\nmodel_ffnn.add(BatchNormalization())\nmodel_ffnn.add(Dense(128, activation='relu'))\nmodel_ffnn.add(Dense(len(np.unique(labels)), activation='softmax'))\n\nmodel_ffnn.compile(optimizer=Adam(learning_rate=0.001), loss='sparse_categorical_crossentropy', metrics=['accuracy'])\n\n\nmodel_ffnn.fit(X_train, y_train, epochs=30, batch_size=32, validation_data=(X_test, y_test))\n\n\nloss, accuracy = model_ffnn.evaluate(X_test, y_test)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "custom_cnn",
+    "classifier": "rnn",
+    "original_notebook": "1. CNN Propia EC por Clasificador/RNN_DB_CNNPropia.ipynb",
+    "sha256": "616d8895cd94e193b102482e3b29473d8564ab9d8134e188ebf0df9774ed4c84",
+    "model_cells": [
+      {
+        "cell": 5,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\nX_train_rnn = X_train.reshape((X_train.shape[0], 1, X_train.shape[1]))\nX_test_rnn = X_test.reshape((X_test.shape[0], 1, X_test.shape[1]))\n\n\nrnn_model = Sequential()\nrnn_model.add(SimpleRNN(64, activation='relu', input_shape=(1, X_train.shape[1])))\nrnn_model.add(Dropout(0.4))\nrnn_model.add(Dense(32, activation='relu'))\nrnn_model.add(Dense(len(np.unique(labels)), activation='softmax'))\n\n\nrnn_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])\n\n\nrnn_model.fit(X_train_rnn, y_train, epochs=30, batch_size=16, validation_data=(X_test_rnn, y_test))\n\n\ny_pred_prob = rnn_model.predict(X_test_rnn)\ny_pred = np.argmax(y_pred_prob, axis=1)\n\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "custom_cnn",
+    "classifier": "ensemble",
+    "original_notebook": "1. CNN Propia EC por Clasificador/Ensamblaje_DB_CNNPropia.ipynb",
+    "sha256": "2e616d7a49b80e2db0c9581ac8efbeeafbe25f78627a8070f965aac414b191b4",
+    "model_cells": [
+      {
+        "cell": 5,
+        "code": "X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=None)\n\n\nffnn = MLPClassifier(hidden_layer_sizes=(512, 256), activation='relu', solver='adam', max_iter=300, random_state=None)\n\n\nsvm = SVC(probability=True, kernel='rbf', random_state=None)\n\n\nmodel_rnn = Sequential()\nmodel_rnn.add(SimpleRNN(128, activation='tanh', input_shape=(X_train.shape[1], 1)))\nmodel_rnn.add(BatchNormalization())\nmodel_rnn.add(Dropout(0.5))\nmodel_rnn.add(Dense(len(np.unique(labels)), activation='softmax'))\nmodel_rnn.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])\n\n\nX_train_rnn = X_train.reshape((X_train.shape[0], X_train.shape[1], 1))\nX_test_rnn = X_test.reshape((X_test.shape[0], X_test.shape[1], 1))\nmodel_rnn.fit(X_train_rnn, y_train, epochs=30, batch_size=32, validation_data=(X_test_rnn, y_test))\n\n\ny_pred_rnn_prob = model_rnn.predict(X_test_rnn)\n\n\nvoting_clf = VotingClassifier(estimators=[('svm', svm), ('ffnn', ffnn)], voting='soft')\n\n\nvoting_clf.fit(X_train, y_train)\n\n\ny_pred_prob_voting = voting_clf.predict_proba(X_test)\n\n\ny_pred_prob = (y_pred_prob_voting + y_pred_rnn_prob) / 2\n\n\ny_pred = np.argmax(y_pred_prob, axis=1)\n\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "vgg16",
+    "classifier": "svm",
+    "original_notebook": "4. VGG16 EC por Clasificador/SVM_DB_VGG16.ipynb",
+    "sha256": "702dbba0d71b3080939b241cc9930ac606fac804633e358c6dd827c823f6f220",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "features_flattened = features.reshape(features.shape[0], -1)\n\n\nX_train, X_test, y_train, y_test = train_test_split(features_flattened, labels, test_size=0.2, random_state=None)\n\n\nsvm = SVC(probability=True, kernel='rbf', random_state=None)\nsvm.fit(X_train, y_train)\n\n\ny_pred = svm.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "vgg16",
+    "classifier": "knn3",
+    "original_notebook": "4. VGG16 EC por Clasificador/KNN3_DB_VGG16.ipynb",
+    "sha256": "f5c24dbc469e9d1b8bff04997e85041c03ea2021bbd5b3a8c884573327763084",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "features_flattened = features.reshape(features.shape[0], -1)\n\n\nX_train, X_test, y_train, y_test = train_test_split(features_flattened, labels, test_size=0.2, random_state=None)\n\n\nknn = KNeighborsClassifier(n_neighbors=3)\nknn.fit(X_train, y_train)\n\n\ny_pred = knn.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "vgg16",
+    "classifier": "random_forest",
+    "original_notebook": "4. VGG16 EC por Clasificador/RF_DB_VGG16.ipynb",
+    "sha256": "d1f00222ba8774a7aec0fad14bd4a77806e0f1650fdcecab22cdf7c341792e34",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "features_flattened = features.reshape(features.shape[0], -1)\n\n\nX_train, X_test, y_train, y_test = train_test_split(features_flattened, labels, test_size=0.2, random_state=None)\n\n\nrf = RandomForestClassifier(n_estimators=100, random_state=None)\nrf.fit(X_train, y_train)\n\n\ny_pred = rf.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "vgg16",
+    "classifier": "xgboost",
+    "original_notebook": "4. VGG16 EC por Clasificador/XGBoost_DB_VGG16.ipynb",
+    "sha256": "3018fe5c2d3d7166c25e7eaedcb232fdce13566f860f76651e192d10148c0532",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "features_flattened = features.reshape(features.shape[0], -1)\n\n\nX_train, X_test, y_train, y_test = train_test_split(features_flattened, labels, test_size=0.2, random_state=None)\n\n\nxgb = XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', random_state=None)\nxgb.fit(X_train, y_train)\n\n\ny_pred = xgb.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "vgg16",
+    "classifier": "gbm",
+    "original_notebook": "4. VGG16 EC por Clasificador/GBM_DB_VGG16.ipynb",
+    "sha256": "98d8d3df45fbe093029d3a2922cf95f2e949c560acc48328785990179abdaa6e",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "features_flattened = features.reshape(features.shape[0], -1)\n\n\nX_train, X_test, y_train, y_test = train_test_split(features_flattened, labels, test_size=0.2, random_state=None)\n\n\ngbm = GradientBoostingClassifier(n_estimators=100, random_state=None)\ngbm.fit(X_train, y_train)\n\n\ny_pred = gbm.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "vgg16",
+    "classifier": "feedforward",
+    "original_notebook": "4. VGG16 EC por Clasificador/FeedFwrd_DB_VGG16.ipynb",
+    "sha256": "0724b97bf844706c69e1568614e492a331203e2362f9b31962b2b6f360cbc9ff",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "features_flattened = features.reshape(features.shape[0], -1)\n\n\nX_train, X_test, y_train, y_test = train_test_split(features_flattened, labels, test_size=0.2, random_state=None)\n\n\nmlp = MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=500, random_state=None)\nmlp.fit(X_train, y_train)\n\n\ny_pred = mlp.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "vgg16",
+    "classifier": "rnn",
+    "original_notebook": "4. VGG16 EC por Clasificador/RNN_DB_VGG16.ipynb",
+    "sha256": "9a1bcb4d8fded1932c986cb880b9ab9adbe52af117e34c794fd768c35023689e",
+    "model_cells": [
+      {
+        "cell": 2,
+        "code": "features_flattened = features.reshape(features.shape[0], -1)\n\n\nX_train, X_test, y_train, y_test = train_test_split(features_flattened, labels, test_size=0.2, random_state=None)\n\n\nX_train = X_train.reshape((X_train.shape[0], 1, X_train.shape[1]))\nX_test = X_test.reshape((X_test.shape[0], 1, X_test.shape[1]))\n\n\nmodel = Sequential()\nmodel.add(SimpleRNN(64, activation='relu', input_shape=(X_train.shape[1], X_train.shape[2])))\nmodel.add(Dense(32, activation='relu'))\nmodel.add(Dense(len(np.unique(labels)), activation='softmax'))\n\n\nmodel.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])\n\n\nmodel.fit(X_train, y_train, epochs=50, batch_size=32, verbose=1, validation_data=(X_test, y_test))\n\n\ny_pred_prob = model.predict(X_test)\ny_pred = np.argmax(y_pred_prob, axis=1)\naccuracy = accuracy_score(y_test, y_pred)\n",
+        "snippet_notes": "Original source comments omitted; printed messages translated into English. The notebook SHA-256 identifies the unmodified original source."
+      }
+    ]
+  },
+  {
+    "extractor": "resnet50",
+    "classifier": "knn3",
+    "original_notebook": "2. ResNet50 EC por Clasificador/KNN3_DB_ResNet.ipynb",
+    "sha256": "51604cf12a944954558af7c5b6cb91ab0772caa19cb24e0e94d1fa37a5acbde4"
+  },
+  {
+    "extractor": "efficientnet",
+    "classifier": "knn3",
+    "original_notebook": "Arquitecturas + Clasificadores/DMAE_A_Quiñones_EfficientNet_EC_KNN_v2_v4b.ipynb",
+    "sha256": "c9f4d13c29aa2e8a84353be510e378c13ee822e304892fe48792054b43b589c1"
+  }
+]

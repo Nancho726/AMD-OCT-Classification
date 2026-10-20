@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Please cite this code record and the associated article when using this work."
+type: software
+title: "Five-category OCT atrophy classification: Colab research code"
+version: 1.0.0
+date-released: 2026-10-16
+authors:
+  - family-names: "Quiñones Lucio"
+    given-names: "Andrés Felipe"
+    affiliation: "Instituto para Niños Ciegos y Sordos, Cali, Colombia"
+  - family-names: "Vargas Cardona"
+    given-names: "Hernán Darío"
+    affiliation: "Pontificia Universidad Javeriana Cali, Cali, Colombia"
+keywords:
+  - optical coherence tomography
+  - retinal atrophy
+  - age-related macular degeneration
+  - hybrid classification

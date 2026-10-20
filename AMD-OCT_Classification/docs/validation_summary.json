@@ -1,0 +1,20 @@
+{
+  "python_modules": 8,
+  "notebooks": 22,
+  "parsed_code_cells": 103,
+  "unit_tests_passed": 11,
+  "actual_cache_svm_runs": 2,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8",
+    "tensorflow": null,
+    "keras": null,
+    "xgboost": null,
+    "pillow": "12.3.0"
+  },
+  "neural_training_executed": false,
+  "colab_authenticated_session_executed": false
+}

@@ -1,0 +1,2 @@
+# Optional: custom CNN training/extraction, CNN feedforward, RNN and ensemble.
+tensorflow>=2.16,<3
